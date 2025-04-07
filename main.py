@@ -48,6 +48,9 @@ if "messages" not in st.session_state:
     st.session_state.chat_open_flg = False
     st.session_state.problem = ""
     
+     # `englv` の初期化
+    st.session_state.englv = "初級者"  # デフォルト値を設定（例: "初級者"）
+
     st.session_state.openai_obj = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
     st.session_state.llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5)
     st.session_state.memory = ConversationSummaryBufferMemory(
