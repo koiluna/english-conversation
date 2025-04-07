@@ -175,21 +175,21 @@ if st.session_state.start_flg:
             st.session_state.messages.append({"role": "user", "content": st.session_state.dictation_chat_message})
             
             with st.spinner('評価結果の生成中...'):
-                    if st.session_state.englv == "初心者":
-                        system_template = ct.SYSTEM_TEMPLATE_EVALUATION_BEGINNER.format(
+                if st.session_state.englv == "初心者":
+                    system_template = ct.SYSTEM_TEMPLATE_EVALUATION_BEGINNER.format(
+                    llm_text=st.session_state.problem,
+                    user_text=st.session_state.dictation_chat_message
+                    )
+                elif st.session_state.englv == "中級者":
+                    system_template = ct.SYSTEM_TEMPLATE_EVALUATION_INTERMEDIATE.format(
                         llm_text=st.session_state.problem,
                         user_text=st.session_state.dictation_chat_message
-                        )
-                    elif st.session_state.englv == "中級者":
-                        system_template = ct.SYSTEM_TEMPLATE_EVALUATION_INTERMEDIATE.format(
-                            llm_text=st.session_state.problem,
-                            user_text=st.session_state.dictation_chat_message
-                        )
-                    elif st.session_state.englv == "上級者":
-                        system_template = ct.SYSTEM_TEMPLATE_EVALUATION_ADVANCED.format(
-                            llm_text=st.session_state.problem,
-                            user_text=st.session_state.dictation_chat_message
-                        )
+                    )
+                elif st.session_state.englv == "上級者":
+                    system_template = ct.SYSTEM_TEMPLATE_EVALUATION_ADVANCED.format(
+                        llm_text=st.session_state.problem,
+                        user_text=st.session_state.dictation_chat_message
+                    )
                 st.session_state.chain_evaluation = ft.create_chain(system_template)
                 # 問題文と回答を比較し、評価結果の生成を指示するプロンプトを作成
                 llm_response_evaluation = ft.create_evaluation()
